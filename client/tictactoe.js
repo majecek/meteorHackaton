@@ -19,6 +19,15 @@ function getPlayerByName(game, name) {
 
 function Cell(game, position, move) {
 
+    Meteor.call ('findGameByName', "game1", function(error,result) {
+        if(error){
+            console.log('error:', error);
+        }
+        console.log(result);
+    })
+
+
+
     var cell = {
 
         position: position,
