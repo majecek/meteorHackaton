@@ -95,7 +95,7 @@ Meteor.startup(function() {
             var nextPlayer = "";
 
             if (newMoveNumber > 1) {
-                nextPlayer = game.players[0].email == data.email ?  (game.players.count > 1 ? game.players[1].email : "" ): game.players[0].email;
+                nextPlayer = game.players[0].email == data.email ?  (game.players.length > 1 ? game.players[1].email : "" ): game.players[0].email;
                 var latestUser = _.last(game.board).email;
                 if (latestUser == data.email){
                     Games.update(

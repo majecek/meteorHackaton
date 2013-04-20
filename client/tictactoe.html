@@ -32,14 +32,25 @@
     
     <div>
  <input type="button" value="Create game" class="btn create-game">
- <ul>
-{{#each games}}
-<li>{{status}} - {{emails}} 
-{{#if canJoin}}
-<input type="button" value="Join game" class="btn join-game" id="{{_id}}">
-{{/if}}
-<input type="button" value="Switch to game" class="btn view-game" id="{{_id}}"></li>
-{{/each}}
+
+        <table>
+            {{#each games}}
+            <tr>
+                <td><h4>{{status}}</h4></td>
+                <td><h6>{{emails}}</h6></td>
+                <td>
+                    {{#if canJoin}}
+                        <input type="button" value="Join game" class="btn btn-warning join-game" id="{{_id}}">
+                    {{/if}}
+                        <input type="button" value="Switch to game" class="btn btn-success view-game" id="{{_id}}">
+                </td>
+
+
+            </tr>
+            {{/each}}
+        </table>
+        <ul>
+
 </ul>
 </div>
 
@@ -51,7 +62,7 @@
 
     {{game.game.size.x}} X {{game.game.size.y}}
 
-    Next Player: {{game.game.nextPlayer}}
+    <p>Next Player: <span class="text-info">{{game.game.nextPlayer}}</span></p>
 
     <table class="tictactoe">
         {{#each game.board}}
