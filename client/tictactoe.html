@@ -1,22 +1,64 @@
 <head>
-  <title>tictactoe</title>
+    <title>tictactoe</title>
 </head>
 
 <body>
-  {{> canvas}}
+{{> availableGames}}
+
+{{> bootstrapCanvas}}
 </body>
 
-<template name="canvas">
-
-    <canvas id="canvas" class="canvas z-index-background" width="1000" height="700">
-
-
-    </canvas>
-
-    <canvas id="canvasActive" class="canvas z-index-active" width="1000" height="700">
+<!--<template name="canvas">-->
+<!--<canvas id="canvas" class="canvas z-index-background" width="1000" height="700">-->
 
 
-    </canvas>
+<!--</canvas>-->
 
+<!--<canvas id="canvasActive" class="canvas z-index-active" width="1000" height="700">-->
+
+
+<!--</canvas>-->
+
+<!--</template>-->
+
+<template name="availableGames">
+
+    <ul>
+        {{#each games}}
+        <li>{{status}}
+            <button class="btn join-game">join</button>
+        </li>
+        {{/each}}
+    </ul>
+
+</template>
+
+<template name="bootstrapCanvas">
+
+    {{game.game.size.x}} X {{game.game.size.y}}
+
+    <table class="table table-striped table-bordered table-condensed">
+        {{#each game.board}}
+        <tr>
+            {{#each cells}}
+            <td>
+                {{> cell}}
+            </td>
+            {{/each}}
+        </tr>
+        {{/each}}
+    </table>
+
+</template>
+
+<template name="cell">
+
+    <!--{{position.x}}-{{position.y}}-->
+
+    {{#if move}}
+         {{player.symbol}}
+    {{else}}
+        &nbsp;
+    {{/if}}
 
 </template>
