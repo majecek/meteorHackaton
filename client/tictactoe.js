@@ -11,9 +11,9 @@ function getMoveOnPosition(game, x, y) {
     });
 };
 
-function getPlayerByName(game, name) {
+function getPlayerByName(game, email) {
     return _.find(game.players, function (player) {
-        return player.name === name;
+        return player.email === email;
     });
 };
 
@@ -30,7 +30,7 @@ function Cell(game, position, move) {
     };
 
     if(move) {
-        cell.player = getPlayerByName(game, move.name)
+        cell.player = getPlayerByName(game, move.email)
     }
 
     return cell;
