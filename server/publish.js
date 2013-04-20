@@ -84,10 +84,6 @@ Meteor.startup(function() {
         cancelGame: function(gameId) {
             Games.remove({_id: gameId});
         }
-
-
-
-
     });
 
 });
