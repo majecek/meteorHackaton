@@ -17,10 +17,19 @@ Template.availableGames.canJoin = function() {
 	if (p2 != null) {
 		return false;
 	}
+	var actualUser = Meteor.user().emails[0].address;
+	if (actualUser === p1.email) {
+		return false;
+	}
 	return true;
 }
 
 Template.availableGames.events({
+	'click input.view-game' : function() {
+
+		Session.set('game', this);
+
+	},
 	'click input.join-game' : function() {
 
 		Session.set('game', this);
@@ -53,7 +62,8 @@ Template.availableGames.events({
 			players : [ {
 				email : userEmail,
 				symbol : "x"
-			} ]
+			} ],
+			board : []
 		};
 
 		var id = Games.insert(game);
