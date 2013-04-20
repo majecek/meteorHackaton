@@ -92,14 +92,12 @@ Meteor.startup(function() {
 
             var newMoveNumber = maxMoveNumber ? maxMoveNumber.moveNumber + 1 : 1;
 
-            var nextPlayer = game.players[0].email == data.email ?  game.players[1].email : game.players[0].email;
-
+            var nextPlayer = "";
 
             if (newMoveNumber > 1) {
+                nextPlayer = game.players[0].email == data.email ?  (game.players.count > 1 ? game.players[1].email : "" ): game.players[0].email;
                 var latestUser = _.last(game.board).email;
                 if (latestUser == data.email){
-                    console.log('Other Player turn !!');
-
                     Games.update(
                         { _id: data.gameID},
                         {
@@ -124,7 +122,6 @@ Meteor.startup(function() {
                 {
                     $push: {
                         board: move
-
                     } ,
                     $set: {
                         nextPlayer:  nextPlayer
