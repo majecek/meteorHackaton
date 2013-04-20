@@ -2,12 +2,6 @@ Meteor.subscribe("allGames");
 
 Meteor.startup(function () {
 
-    Meteor.call ('findGameByName', "game1", function(error,result) {
-        if(error){
-            console.log('error:', error);
-        }
-        console.log(result);
-    })
 
 });
 
@@ -43,11 +37,44 @@ function Cell(game, position, move) {
 }
 
 
+Template.bootstrapCanvas.events({
+    'click .cell' : function() {
+
+        console.log('MOVE');
+        console.log(this);
+
+        if(this.move) {
+            return;
+        }
+
+        var game = Session.get('game');
+
+        console.log(game);
+
+
+        Meteor.call('move', {
+            gameID: game['_id'],
+            position: this.position,
+            email: Meteor.user().emails[0].address
+
+        }, function (error, data) {
+            if (! error) {
+                // success
+            }
+        });
+
+
+    }
+});
+
+
 Template.bootstrapCanvas.game = function () {
 
-    var game = Session.get('game');
+    if(!Session.get('game')) {
+        return;
+    }
 
-//    console.log('board');
+    var game = Games.findOne({'_id': Session.get('game')['_id']});
 
     if(game) {
     console.log(game.board);

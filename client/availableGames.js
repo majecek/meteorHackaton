@@ -56,8 +56,8 @@ Template.availableGames.events({
 		var game = {
 			status : "WAITING",
 			size : {
-				x : 5,
-				y : 5
+				x : 10,
+				y : 10
 			},
 			players : [ {
 				email : userEmail,

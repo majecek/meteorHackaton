@@ -53,25 +53,6 @@ Meteor.startup(function() {
 
 	Meteor.methods({
 
-		findGameByID : function(gameID) {
-			var game = Games.find({
-				_id : gameID
-			}).fetch();
-			return game;
-		},
-
-		findGameByName : function(gameName) {
-			var game = Games.findOne({
-				name : gameName
-			});
-			return game;
-		},
-
-        findGameByName: function(gameName) {
-            var game = Games.findOne({name: gameName});
-            return game;
-        },
-
         createGame: function () {
             Games.insert({
                 name: "game3",
@@ -106,11 +87,13 @@ Meteor.startup(function() {
                 return item.moveNumber;
             });
 
+            var newMoveNumber = maxMoveNumber ? maxMoveNumber.moveNumber + 1 : 1;
+
             var move = {
 
                 x: data.position.x,
                 y: data.position.y,
-                moveNumber: maxMoveNumber.moveNumber + 1,
+                moveNumber: newMoveNumber,
                 email: data.email
             };
 

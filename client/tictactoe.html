@@ -47,13 +47,15 @@
 
 <template name="bootstrapCanvas">
 
+    {{game.game.name}}
+
     {{game.game.size.x}} X {{game.game.size.y}}
 
     <table class="table table-striped table-bordered table-condensed">
         {{#each game.board}}
         <tr>
             {{#each cells}}
-            <td>
+            <td class="cell">
                 {{> cell}}
             </td>
             {{/each}}
