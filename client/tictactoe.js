@@ -47,7 +47,7 @@ Template.bootstrapCanvas.game = function () {
 
     var game = Session.get('game');
 
-    console.log('board');
+//    console.log('board');
 
     if(game) {
     console.log(game.board);
@@ -71,8 +71,8 @@ Template.bootstrapCanvas.game = function () {
 
             var move = getMoveOnPosition(game, row, column);
 
-            console.log('found move:');
-            console.log(move);
+//            console.log('found move:');
+//            console.log(move);
 
             var cell = new Cell(game, {x: row, y: column}, move);
             newRow.cells.push(cell);

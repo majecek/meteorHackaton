@@ -25,11 +25,20 @@ Template.availableGames.events({
 
 		Session.set('game', this);
 
+		var userEmail = Meteor.user().emails[0].address;
+
+		var player = {
+			email : userEmail,
+			symbol : "o"
+		};
 		Games.update({
 			_id : this['_id']
 		}, {
 			$set : {
-				status : "III"
+				status : "ACTIVE"
+			},
+			$push : {
+				players : player
 			}
 		});
 	},

@@ -1,5 +1,8 @@
 Meteor.publish("allGames", function() {
-	return Games.find();
+	if (this.userId != null) {
+		return Games.find();
+	}
+	return {};
 	// return Games.find({ status: "ACTIVE"});
 });
 
