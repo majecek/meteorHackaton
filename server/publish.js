@@ -4,6 +4,7 @@ Meteor.publish("allGames", function() {
 });
 
 
+
 Meteor.startup(function() {
 	// code to run on server at startup
 	Games.remove({});
@@ -11,7 +12,7 @@ Meteor.startup(function() {
 		Games.insert({
             name: "game1",
 			status: "ACTIVE",
-			size : [ 5, 5 ],
+			size : {x: 5, y: 5 },
 			players : [ {
 				name : "Adam",
 				symbol : "x"
@@ -29,7 +30,7 @@ Meteor.startup(function() {
 		Games.insert({
             name: "game2",
 			status: "INACTIVE",
-			size : [ 5, 5 ],
+			size : {x: 5, y: 5 },
 			players : [ {
 				name : "Dan",
 				symbol : "x"
