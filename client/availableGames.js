@@ -24,6 +24,14 @@ Template.availableGames.canJoin = function() {
 	return true;
 }
 
+Template.availableGames.isWinner = function() {
+	var winner = this.winner;
+	if (winner != null) {
+		return true;
+	}
+	return false;
+}
+
 Template.availableGames.events({
 	'click input.view-game' : function() {
 

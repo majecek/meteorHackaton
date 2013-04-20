@@ -55,33 +55,6 @@ Meteor.startup(function() {
 
 	Meteor.methods({
 
-        createGame: function () {
-            Games.insert({
-                name: "game3",
-                status: "ACTIVE",
-                size: { x: 5, y: 5 },
-                players: [
-                    {
-                        name: "Dan",
-                        symbol: "x"
-                    },
-                    {
-                        name: "Emil",
-                        symbol: "o"
-                    }
-                ],
-                board: [
-                    {
-                        x: 1,
-                        y: 1,
-                        moveNumber: 1,
-                        name: "Adam"
-                    }
-                ],
-                nextPlayer: ""
-            });
-        },
-
         move: function (data) {
 
 
@@ -128,6 +101,116 @@ Meteor.startup(function() {
                     }
                 }
             );
+            
+            var boardState = new Array(game.size.x);
+			for ( var i = 0; i < game.size.x; i++) {
+				boardState[i] = new Array(game.size.y);
+			}
+			// Put the new move separately, it is not yet in the
+			// collection
+			boardState[move.y][move.x] = move.email;
+			console.log("--------------------");
+			for ( var mv = 0; mv < game.board.length; mv++) {
+				var mov = game.board[mv];
+				boardState[mov.y][mov.x] = mov.email;
+				console.log(mov.x + ", " + mov.y + " = "
+						+ mov.email);
+			}
+			console.log(move.x + ", " + move.y + " = "
+					+ move.email);
+			console.log(boardState);
+
+			var stack = new Array();
+			stack.push({
+				x : move.x,
+				y : move.y
+			});
+			var limit = 5;
+			// Vertical
+			var onY = move.y;
+			console.log("Checking horizontal: " + move.x + ", "
+					+ onY);
+			for ( var xp = move.x + 1; xp < game.size.x
+					&& xp < move.x + limit; xp++) {
+				// console.log(xp + ", " + onY);
+				// console.log(boardState[xp][onY]);
+				if (boardState[onY][xp] != null
+						&& boardState[onY][xp] === move.email) {
+					stack.push({
+						x : xp,
+						y : onY
+					});
+				}
+			}
+			for ( var xp = move.x - 1; xp >= 0
+					&& xp > move.x - limit; xp--) {
+				console.log(xp + ", " + onY);
+				// console.log(boardState[xp][onY]);
+				if (boardState[onY][xp] != null
+						&& boardState[onY][xp] === move.email) {
+					stack.push({
+						x : xp,
+						y : onY
+					});
+				}
+			}
+			if (stack.length == limit) {
+				Games.update({
+					_id : data.gameID
+				}, {
+					$set : {
+						winner : {
+							email : move.email,
+							line : stack
+						}
+					}
+				});
+			}
+
+			// Horizontal
+			var stack = new Array();
+			stack.push({
+				x : move.x,
+				y : move.y
+			});
+			var onY = move.x;
+			for ( var xp = move.y + 1; xp < game.size.y
+					&& xp < move.y + limit; xp++) {
+				if (boardState[xp][onY] != null
+						&& boardState[xp][onY] === move.email) {
+					stack.push({
+						x : xp,
+						y : onY
+					});
+				}
+			}
+			for ( var xp = move.y - 1; xp >= 0
+					&& xp > move.y - limit; xp--) {
+				console.log(xp + ", " + onY);
+				// console.log(boardState[xp][onY]);
+				if (boardState[xp][onY] != null
+						&& boardState[xp][onY] === move.email) {
+					stack.push({
+						x : xp,
+						y : onY
+					});
+				}
+			}
+			if (stack.length == limit) {
+				Games.update({
+					_id : data.gameID
+				}, {
+					$set : {
+						winner : {
+							email : move.email,
+							line : stack
+						}
+					}
+				});
+			}
+			console.log(stack);
+			// console.log(game.board.length);
+            
         },
 
         cancelGame: function (gameId) {
