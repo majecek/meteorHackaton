@@ -26,7 +26,8 @@ Meteor.startup(function() {
 				y : 1,
 				moveNumber : 1,
 				email : "Adam@example.com"
-			} ]
+			} ],
+            nextPlayer: ""
 		});
 		Games.insert({
 			name : "game2",
@@ -47,7 +48,8 @@ Meteor.startup(function() {
 				y : 1,
 				moveNumber : 1,
 				email : "Emil@example.com"
-			} ]
+			} ],
+            nextPlayer: ""
 		});
 	}
 
@@ -75,35 +77,57 @@ Meteor.startup(function() {
                         moveNumber: 1,
                         name: "Adam"
                     }
-                ]
+                ],
+                nextPlayer: ""
             });
         },
 
         move: function (data) {
 
-            var game = Games.findOne({_id: data.gameID});
 
+            var game = Games.findOne({_id: data.gameID});
             var maxMoveNumber = _.max(game.board, function (item) {
                 return item.moveNumber;
             });
 
             var newMoveNumber = maxMoveNumber ? maxMoveNumber.moveNumber + 1 : 1;
 
-            var move = {
+            var nextPlayer = game.players[0].email == data.email ?  game.players[1].email : game.players[0].email;
 
+
+            if (newMoveNumber > 1) {
+                var latestUser = _.last(game.board).email;
+                if (latestUser == data.email){
+                    console.log('Other Player turn !!');
+
+                    Games.update(
+                        { _id: data.gameID},
+                        {
+                            $set: {
+                                nextPlayer:  nextPlayer
+                            }
+                        }
+                    );
+                    return;
+                }
+            }
+
+            var move = {
                 x: data.position.x,
                 y: data.position.y,
                 moveNumber: newMoveNumber,
                 email: data.email
             };
 
-//            game.board.push(move);
-
             Games.update(
                 { _id: data.gameID},
                 {
                     $push: {
                         board: move
+
+                    } ,
+                    $set: {
+                        nextPlayer:  nextPlayer
                     }
                 }
             );
