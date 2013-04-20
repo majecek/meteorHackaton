@@ -33,6 +33,17 @@ Template.availableGames.isWinner = function() {
 	return false;
 }
 
+Template.availableGames.onlyOneGame = function() {
+    var games = this;
+    console.log(this.length);
+    console.log(games);
+    console.log(games.length);
+    if (games.length < 1 ) {
+        return true;
+    }
+    return false;
+}
+
 Template.availableGames.events({
 	'click input.view-game' : function() {
 
