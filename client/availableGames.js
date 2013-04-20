@@ -80,3 +80,26 @@ Template.availableGames.events({
 		Session.set('game', game);
 	}
 });
+
+Template.newGame.events({
+    'click input.create-game' : function() {
+        var userEmail = Meteor.user().emails[0].address;
+        var game = {
+            status : "WAITING",
+            size : {
+                x : 10,
+                y : 10
+            },
+            players : [ {
+                email : userEmail,
+                symbol : "x"
+            } ],
+            board : []
+        };
+
+        var id = Games.insert(game);
+        game['_id'] = id;
+
+        Session.set('game', game);
+    }
+});

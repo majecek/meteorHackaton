@@ -3,35 +3,38 @@
 </head>
 
 <body>
-<div class="row">
-  <div class="span4">{{loginButtons align="left"}}</div>
+
+<div class="navbar">
+    <div class="navbar-inner">
+        <a class="brand" href="#">Tic-Tac-Toe</a>
+        <ul class="nav">
+            <li class="active"><a href="#">{{loginButtons align="left"}}</a></li>
+            <li>{{> newGame}}</li>
+        </ul>
+    </div>
 </div>
- 
 
-{{#if currentUser}}
-{{> availableGames}}
 
-{{> bootstrapCanvas}}
-{{/if}}
+<div class="row-fluid">
+    {{#if currentUser}}
+    <div class="span6">
+        {{> bootstrapCanvas}}
+    </div>
+    <div class="span6">
+        {{> availableGames}}
+    </div>
+    {{/if}}
+</div>
+
 </body>
-<!--<template name="canvas">-->
-<!--<canvas id="canvas" class="canvas z-index-background" width="1000" height="700">-->
 
 
-<!--</canvas>-->
-
-<!--<canvas id="canvasActive" class="canvas z-index-active" width="1000" height="700">-->
-
-
-<!--</canvas>-->
-
-<!--</template>-->
+<template name="newGame">
+    <input type="button" value="Create game" class="btn btn-warning create-game">
+</template>
 
 <template name="availableGames">
 
-    
-    <div>
- <input type="button" value="Create game" class="btn create-game">
 
         <table>
             {{#each games}}
@@ -44,34 +47,27 @@
                     {{/if}}
                         <input type="button" value="Switch to game" class="btn btn-success view-game" id="{{_id}}">{{#if isWinner}}<b>Winner: {{winner.email}}</b>{{/if}}
                 </td>
-
-
             </tr>
             {{/each}}
         </table>
-</div>
-
 </template>
+
 
 <template name="bootstrapCanvas">
 
-    {{game.game.name}}
+            <p>Next Player: <span class="text-info">{{game.game.nextPlayer}}</span></p>
 
-    {{game.game.size.x}} X {{game.game.size.y}}
-
-    <p>Next Player: <span class="text-info">{{game.game.nextPlayer}}</span></p>
-
-    <table class="tictactoe">
-        {{#each game.board}}
-        <tr>
-            {{#each cells}}
-            <td class="cell {{symbol}}">
-                {{> cell}}
-            </td>
-            {{/each}}
-        </tr>
-        {{/each}}
-    </table>
+            <table class="tictactoe">
+                {{#each game.board}}
+                <tr>
+                    {{#each cells}}
+                    <td class="cell {{symbol}}">
+                        {{> cell}}
+                    </td>
+                    {{/each}}
+                </tr>
+                {{/each}}
+            </table>
 
 </template>
 
