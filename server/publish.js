@@ -1,6 +1,7 @@
 
 Meteor.publish("allGames", function() {
-	return Games.find({	status: "ACTIVE"});
+	return Games.find();
+//	return Games.find({	status: "ACTIVE"});
 });
 
 
