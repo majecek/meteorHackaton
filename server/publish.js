@@ -62,6 +62,17 @@ Meteor
 							var game = Games.findOne({
 								_id : data.gameID
 							});
+
+                            if(game.winner) {
+                                Games.update({
+                                    _id : data.gameID
+                                }, {
+                                    $set : {
+                                        nextPlayer : ""
+                                    }
+                                });
+                                return;
+                            }
 							var maxMoveNumber = _.max(game.board,
 									function(item) {
 										return item.moveNumber;
