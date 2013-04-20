@@ -11,3 +11,55 @@
 .z-index-active {
     z-index: 200;
 }
+
+table td, table th {
+    border: 1px solid #eee;
+    text-align: center;
+    vertical-align: middle;
+}
+
+table td {
+    width: 110px;
+    height: 110px;
+}
+
+.red-cross {
+    left: 0;
+    width: 110px;
+    height: 110px;
+    background: url('/tictactoe.png') 0 0;
+}
+
+.red-circle {
+    left: 0;
+    width: 110px;
+    height: 110px;
+    background: url('/tictactoe.png') 120px 0;
+}
+
+.blue-cross {
+    left: 0;
+    width: 110px;
+    height: 110px;
+    background: url('/tictactoe.png') 0 110px;
+}
+
+.blue-circle {
+    left: 0;
+    width: 110px;
+    height: 110px;
+    background: url('/tictactoe.png') 110px 110px;
+}
+
+/*table .tictactoe {*/
+    /*border-collapse:collapse;*/
+    /*table-layout: fixed;*/
+    /*border: 1px solid black;*/
+/*}*/
+
+/*table,td .tictactoe {*/
+    /*background-color: #2d6987;*/
+/*}*/
+
+/*td .tictactoe {*/
+    /*border:1px solid green;*/

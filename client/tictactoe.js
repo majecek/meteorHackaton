@@ -19,10 +19,6 @@ function getPlayerByName(game, email) {
 
 function Cell(game, position, move) {
 
-
-
-
-
     var cell = {
 
         position: position,
@@ -31,6 +27,12 @@ function Cell(game, position, move) {
 
     if(move) {
         cell.player = getPlayerByName(game, move.email)
+
+        if(cell.player.symbol == 'x') {
+            cell.symbol = 'blue-cross';
+        } else {
+            cell.symbol = 'red-circle';
+        }
     }
 
     return cell;
