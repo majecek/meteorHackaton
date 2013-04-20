@@ -1,1 +1,13 @@
 /* CSS declarations go here */
+
+.canvas {
+    position: absolute;
+}
+
+.z-index-background {
+    z-index: 100;
+}
+
+.z-index-active {
+    z-index: 200;
+}
