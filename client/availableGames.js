@@ -4,38 +4,49 @@ Template.availableGames.games = function () {
 
 
 Template.availableGames.events({
-	'click input.join-game' : function(event, template) {
-		var gameId = event.currentTarget.id;
-		console.log("joining game: " + gameId);
+	'click input.join-game' : function() {
+
+        Session.set('game', this);
+
 		Games.update({
-			_id : gameId
+			_id : this['_id']
 		}, {
 			$set : {
 				status : "III"
 			}
 		});
 	},
-	'click input.create-game' : function(event, template) {
-		var gameId = event.currentTarget.id;
-		Games.insert({
-			status : "WAITING",
-			size : {
-				x : 5,
-				y : 5
-			},
-			players : [ {
-				name : "Adam",
-				symbol : "x"
-			}, {
-				name : "Bohumil",
-				symbol : "o"
-			} ],
-			board : [ {
-				x : 1,
-				y : 1,
-				moveNumber : 1,
-				name : "Adam"
-			} ]
-		});
+	'click input.create-game' : function() {
+
+        var game = {
+            status: "WAITING",
+            size: {
+                x: 5,
+                y: 5
+            },
+            players: [
+                {
+                    name: "Adam",
+                    symbol: "x"
+                },
+                {
+                    name: "Bohumil",
+                    symbol: "o"
+                }
+            ],
+            board: [
+                {
+                    x: 1,
+                    y: 1,
+                    moveNumber: 1,
+                    name: "Adam"
+                }
+            ]
+        };
+
+		var id = Games.insert(game);
+        game['_id'] = id;
+
+        Session.set('game', game);
 	}
 });
