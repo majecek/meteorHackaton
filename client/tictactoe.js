@@ -6,6 +6,8 @@ var halfCellSize = (cellSize / 2);
 var meshColor = '#000';
 var gameCanvas, gameContext;
 
+Meteor.subscribe("allGames");
+
 function drawLine(startX, startY, endX, endY, context, color) {
 
     context.strokeStyle = color;
