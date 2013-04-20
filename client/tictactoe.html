@@ -44,8 +44,9 @@
                 <td>
                     {{#if canJoin}}
                         <input type="button" value="Join game" class="btn btn-warning join-game" id="{{_id}}">
-                    {{/if}}
+                    {{else}}
                         <input type="button" value="Switch to game" class="btn btn-success view-game" id="{{_id}}">{{#if isWinner}}<b>Winner: {{winner.email}}</b>{{/if}}
+                    {{/if}}
                 </td>
             </tr>
             {{/each}}
