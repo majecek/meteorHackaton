@@ -43,22 +43,6 @@ function Cell(game, position, move) {
 }
 
 
-Template.availableGames.games = function () {
-    return Games.find({});
-};
-
-Template.availableGames.events({
-
-        'click .btn': function () {
-            console.log('Vybrana');
-            console.log(this);
-
-            Session.set('game', this);
-        }
-    }
-);
-
-
 Template.bootstrapCanvas.game = function () {
 
     var game = Session.get('game');

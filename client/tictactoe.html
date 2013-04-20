@@ -23,13 +23,15 @@
 
 <template name="availableGames">
 
-    <ul>
-        {{#each games}}
-        <li>{{status}}
-            <button class="btn join-game">join</button>
-        </li>
-        {{/each}}
-    </ul>
+    
+    <div>
+ <input type="button" value="Create game" class="create-game">
+ <ul>
+{{#each games}}
+<li>{{status}} <input type="button" value="Join game" class="join-game" id="{{_id}}"> <input type="button" value="View game" class="view-game"></li>
+{{/each}}
+</ul>
+</div>
 
 </template>
 
