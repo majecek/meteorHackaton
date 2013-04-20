@@ -8,3 +8,5 @@ preserve-inputs
 jquery
 bootstrap
 underscore
+accounts-password
+accounts-ui
