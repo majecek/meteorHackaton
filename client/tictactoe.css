@@ -19,36 +19,36 @@ table td, table th {
 }
 
 table td {
-    width: 110px;
-    height: 110px;
+    width: 55px;
+    height: 55px;
 }
 
 .red-cross {
     left: 0;
-    width: 110px;
-    height: 110px;
+    width: 55px;
+    height: 55px;
     background: url('/tictactoe.png') 0 0;
 }
 
 .red-circle {
     left: 0;
-    width: 110px;
-    height: 110px;
-    background: url('/tictactoe.png') 120px 0;
+    width: 55px;
+    height: 55px;
+    background: url('/tictactoe.png') 60px 0;
 }
 
 .blue-cross {
     left: 0;
-    width: 110px;
-    height: 110px;
-    background: url('/tictactoe.png') 0 110px;
+    width: 55px;
+    height: 55px;
+    background: url('/tictactoe.png') 0 55px;
 }
 
 .blue-circle {
     left: 0;
-    width: 110px;
-    height: 110px;
-    background: url('/tictactoe.png') 110px 110px;
+    width: 55px;
+    height: 55px;
+    background: url('/tictactoe.png') 55px 55px;
 }
 
 /*table .tictactoe {*/
