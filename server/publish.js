@@ -67,32 +67,68 @@ Meteor.startup(function() {
 			return game;
 		},
 
-		createGame : function() {
-			Games.insert({
-				name : "game3",
-				status : "ACTIVE",
-				size : [ 5, 5 ],
-				players : [ {
-					name : "Dan",
-					symbol : "x"
-				}, {
-					name : "Emil",
-					symbol : "o"
-				} ],
-				board : [ {
-					x : 1,
-					y : 1,
-					moveNumber : 1,
-					name : "Adam"
-				} ]
-			});
-		},
+        findGameByName: function(gameName) {
+            var game = Games.findOne({name: gameName});
+            return game;
+        },
 
-		cancelGame : function(gameId) {
-			Games.remove({
-				_id : gameId
-			});
-		}
-	});
+        createGame: function () {
+            Games.insert({
+                name: "game3",
+                status: "ACTIVE",
+                size: { x: 5, y: 5 },
+                players: [
+                    {
+                        name: "Dan",
+                        symbol: "x"
+                    },
+                    {
+                        name: "Emil",
+                        symbol: "o"
+                    }
+                ],
+                board: [
+                    {
+                        x: 1,
+                        y: 1,
+                        moveNumber: 1,
+                        name: "Adam"
+                    }
+                ]
+            });
+        },
+
+        move: function (data) {
+
+            var game = Games.findOne({_id: data.gameID});
+
+            var maxMoveNumber = _.max(game.board, function (item) {
+                return item.moveNumber;
+            });
+
+            var move = {
+
+                x: data.position.x,
+                y: data.position.y,
+                moveNumber: maxMoveNumber.moveNumber + 1,
+                email: data.email
+            };
+
+//            game.board.push(move);
+
+            Games.update(
+                { _id: data.gameID},
+                {
+                    $push: {
+                        board: move
+                    }
+                }
+            );
+        },
+
+        cancelGame: function (gameId) {
+            Games.remove({_id: gameId});
+        }
+    });
 
 });
