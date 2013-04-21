@@ -27,21 +27,30 @@ Template.availableGames.canJoin = function() {
 
 Template.availableGames.isWinner = function() {
 	var winner = this.winner;
-	if (winner != null) {
+	if (winner != undefined) {
 		return true;
 	}
 	return false;
 }
 
-Template.availableGames.onlyOneGame = function() {
-    var games = this;
-    console.log(this.length);
-    console.log(games);
-    console.log(games.length);
-    if (games.length < 1 ) {
-        return true;
+Template.availableGames.moreGames = function() {
+    var userEmail = Meteor.user().emails[0].address;
+    var game = this;
+    if(game.winner) {
+        if (Games.find().count() < 2 ) {
+            return false;
+        } else {
+            return true;
+        }
     }
-    return false;
+    if (Games.find().count() < 2 ) {
+        if (game.players[0].email == userEmail) {
+            return false;
+        } else {
+            return true;
+        }
+    }
+    return true;
 }
 
 Template.availableGames.events({
@@ -92,6 +101,34 @@ Template.availableGames.events({
 		Session.set('game', game);
 	}
 });
+
+
+Template.availableGames.winners = function() {
+    var winners = Games.find({winner: {$exists: true}},{'winner.email': 1}).fetch();
+    var emails = [];
+
+    _.each(winners, function( winner) {
+        var emailList = [];
+        _.each(emails, function(i) {
+            emailList.push(i.email);
+        });
+        if(! _.contains(emailList,winner.winner.email)) {
+            var email = {
+                email: winner.winner.email,
+                count: Games.find({ 'winner.email': winner.winner.email }).count()
+            };
+            emails.push(email);
+        }
+    });
+    return emails;
+};
+
+
+Template.availableGames.selectedRow = function() {
+    var selectedGame = Session.get('game');
+    var game = this;
+    return _.isEqual(selectedGame._id, game._id);
+};
 
 Template.newGame.events({
     'click input.create-game' : function() {

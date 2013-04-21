@@ -29,47 +29,84 @@
 </body>
 
 
+
 <template name="newGame">
-    <input type="button" value="Create game" class="btn btn-success create-game">
+    <input type="button" value="Create game" class="btn btn-info create-game">
 </template>
+
 
 <template name="availableGames">
 
-        <table>
-            {{#each games}}
+    <table class="table-bordered table-condensed table-striped">
+        <caption>Winners Table</caption>
+        <thead>
             <tr>
-                <td><h4>{{status}}</h4></td>
-                <td><h6>{{emails}}</h6></td>
-                <td>
+                <td class="span3 well well-small">Player Email</td>
+                <td class="span3 well well-small">Count of wins</td>
+            </tr>
+        </thead>
+        <tbody>
+            {{#each winners}}
+            <tr>
+                <td>{{email}}</td>
+                <td>{{count}}</td>
+            </tr>
+            {{/each}}
+        </tbody>
+    </table>
+    <p></p>
+    <p></p>
+
+    <table class="table table-condensed" >
+        {{#each games}}
+            {{#if selectedRow}}
+                <tr class="success">
+            {{else}}
+                <tr>
+            {{/if}}
+                <td class="span1"><h4>{{status}}</h4></td>
+                <td class="span2"><h6>{{emails}}</h6></td>
+                <td class="span1">
+
                     {{#if canJoin}}
-                        <input type="button" value="Join game" class="btn btn-warning join-game" id="{{_id}}">
+                        {{#if  moreGames}}
+                            <input type="button" value="Join game" class="btn btn-success join-game" id="{{_id}}">
+                        {{/if}}
                     {{else}}
-                        <input type="button" value="Switch to game" class="btn btn-success view-game" id="{{_id}}">{{#if isWinner}}<b>Winner: {{winner.email}}</b>{{/if}}
+                        {{#if  moreGames}}
+                            <input type="button" value="Switch to game" class="btn btn-warning view-game" id="{{_id}}">
+                        {{/if}}
+                    {{/if}}
+                </td>
+                <td class="span1">
+                    {{#if isWinner}}
+                        <h4>Winner:</h4> {{winner.email}}
                     {{/if}}
                 </td>
             </tr>
-            {{/each}}
-        </table>
+        {{/each}}
+    </table>
+
 </template>
 
 
 <template name="bootstrapCanvas">
 
-            {{#if game.game.nextPlayer }}
-                <p>Next Player: <span class="text-info">{{game.game.nextPlayer}}</span></p>
-            {{/if}}
+    {{#if game.game.nextPlayer}}
+        <p><h5>Next Player:</h5> <div class="text-info">{{game.game.nextPlayer}}</div></p>
+    {{/if}}
 
-            <table class="tictactoe">
-                {{#each game.board}}
-                <tr>
-                    {{#each cells}}
-                    <td class="cell {{symbol}}">
-                        {{> cell}}
-                    </td>
-                    {{/each}}
-                </tr>
-                {{/each}}
-            </table>
+    <table class="tictactoe">
+        {{#each game.board}}
+        <tr>
+            {{#each cells}}
+            <td class="cell {{symbol}}">
+                {{> cell}}
+            </td>
+            {{/each}}
+        </tr>
+        {{/each}}
+    </table>
 
 </template>
 

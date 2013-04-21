@@ -79,6 +79,7 @@ Template.bootstrapCanvas.game = function () {
     var game = Games.findOne({'_id': Session.get('game')['_id']});
 
     if(game) {
+    console.log(game);
     console.log(game.board);
     }
 
@@ -112,3 +113,12 @@ Template.bootstrapCanvas.game = function () {
 
     return {game: game, board: rows};
 };
+
+
+Template.bootstrapCanvas.isWinner = function() {
+    var winner = this.winner;
+    if (winner != null) {
+        return true;
+    }
+    return false;
+}

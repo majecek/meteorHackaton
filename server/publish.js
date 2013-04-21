@@ -6,8 +6,7 @@ Meteor.publish("allGames", function() {
 	// return Games.find({ status: "ACTIVE"});
 });
 
-Meteor
-		.startup(function() {
+Meteor.startup(function() {
 			// code to run on server at startup
 			Games.remove({});
 			// if (Games.find().count() === 0) {
@@ -54,9 +53,7 @@ Meteor
 			// });
 			// }
 
-			Meteor
-					.methods({
-
+			Meteor.methods({
 						move : function(data) {
 
 							var game = Games.findOne({
@@ -68,7 +65,8 @@ Meteor
                                     _id : data.gameID
                                 }, {
                                     $set : {
-                                        nextPlayer : ""
+                                        nextPlayer : "",
+                                        status: "FINISHED"
                                     }
                                 });
                                 return;
